@@ -19,8 +19,8 @@ using namespace Pylon;
 
 BaslerSource::BaslerSource(int index)
 {
+    Pylon::PylonAutoInitTerm autoInitTerm;  // Calls `PylonInitialize()` and makes sure that `PylonTerminate()` is called at the end.
     try {
-        PylonInitialize();
         // create an instant camera object
         _cam.Attach(CTlFactory::GetInstance().CreateFirstDevice());
 
@@ -31,27 +31,22 @@ BaslerSource::BaslerSource(int index)
 
         // Get the camera control object.
         INodeMap &control = _cam.GetNodeMap();
-
         // Start acquisition
         _cam.StartGrabbing();
-
         // Get some params
         const CIntegerPtr camWidth = control.GetNode("Width");
         const CIntegerPtr camHeight = control.GetNode("Height");
-
         _width = camWidth->GetValue();
         _height = camHeight->GetValue();
         _fps = getFPS();
 
         LOG("Basler camera initialised (%dx%d @ %.3f fps)!", _width, _height, _fps);
 
-
         _open = true;
         _live = true;
-
-        }
-        catch (const GenericException &e) {
-        LOG_ERR("Error opening capture device! Error was: %s", e.GetDescription());
+    }
+    catch (const GenericException &e) {
+        LOG_ERR("Error opening capture device during constructor! Error was: %s", e.GetDescription());
     }
 }
 
@@ -62,7 +57,7 @@ BaslerSource::~BaslerSource()
 	        _cam.DetachDevice();
         }
         catch (const GenericException &e) {
-            LOG_ERR("Error opening capture device! Error was: %s", e.GetDescription());
+            LOG_ERR("Error opening capture device during destructor! Error was: %s", e.GetDescription());
         }
         _open = false;
     }
@@ -70,8 +65,8 @@ BaslerSource::~BaslerSource()
 
 double BaslerSource::getFPS()
 {
-    const GenApi::CFloatPtr camFrameRate = _cam.GetNodeMap().GetNode("ResultingFrameRateAbs");// TODO: test this line
-    return camFrameRate->GetValue();
+    double d = CFloatParameter(_cam.GetNodeMap(), "ResultingFrameRate").GetValue();
+    return d;
 }
 
 bool BaslerSource::setFPS(double fps)
@@ -83,8 +78,7 @@ bool BaslerSource::setFPS(double fps)
         // Get the camera control object.
         INodeMap &control = _cam.GetNodeMap();
         const GenApi::CFloatPtr camFrameRate = _cam.GetNodeMap().GetNode("ResultingFrameRateAbs");// TODO: test this line
-        if (IsWritable(camFrameRate))
-        {
+        if (IsWritable(camFrameRate)) {
             camFrameRate->SetValue(fps);
             ret = true;
         }
