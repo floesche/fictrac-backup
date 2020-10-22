@@ -1,0 +1,13 @@
+{
+    "cmake.buildToolArgs": [],
+    "cmake.configureSettings":{
+        "CMAKE_TOOLCHAIN_FILE":"${userHome}/prj/vcpkg/scripts/buildsystems/vcpkg.cmake",
+        "BASLER_USB3":"ON",
+        "BASLER_DIR":"/opt/pylon"
+    },
+    "files.associations": {
+        "thread": "cpp",
+        "condition_variable": "cpp"
+    }
+
+}

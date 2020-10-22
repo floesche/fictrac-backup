@@ -7,6 +7,7 @@
 #if defined(BASLER_USB3)
 
 #include "BaslerSource.h"
+#include <pylon/PylonIncludes.h>
 
 #include "Logger.h"
 #include "timing.h"
@@ -33,11 +34,20 @@ BaslerSource::BaslerSource(int index)
         INodeMap &control = _cam.GetNodeMap();
 
         // Start acquisition
-        _cam.StartGrabbing();
+        _cam.StartGrabbing(GrabStrategy_LatestImageOnly);
 
         // Get some params
         const CIntegerPtr camWidth = control.GetNode("Width");
         const CIntegerPtr camHeight = control.GetNode("Height");
+
+        // 
+        CEnumParameter throughputMode(control, "DeviceLinkThroughputLimitMode");
+        if (throughputMode.CanSetValue("Off")){
+            throughputMode.SetValue("Off");
+            std::cout << "Set to Off" << std::endl;
+        } else {
+            std::cout << "Cannot set to Off" << std::endl;
+        }
 
         _width = camWidth->GetValue();
         _height = camHeight->GetValue();
@@ -45,13 +55,14 @@ BaslerSource::BaslerSource(int index)
 
         LOG("Basler camera initialised (%dx%d @ %.3f fps)!", _width, _height, _fps);
 
+       
 
         _open = true;
         _live = true;
 
         }
         catch (const GenericException &e) {
-        LOG_ERR("Error opening capture device! Error was: %s", e.GetDescription());
+        LOG_ERR("Error opening capture device in BaslerSource! Error was: %s", e.GetDescription());
     }
 }
 
@@ -62,18 +73,21 @@ BaslerSource::~BaslerSource()
 	        _cam.DetachDevice();
         }
         catch (const GenericException &e) {
-            LOG_ERR("Error opening capture device! Error was: %s", e.GetDescription());
+            LOG_ERR("Error opening capture device when closing BaslerSource! Error was: %s", e.GetDescription());
         }
         _open = false;
     }
+    PylonTerminate();
 }
 
 double BaslerSource::getFPS()
 {
-    const GenApi::CFloatPtr camFrameRate = _cam.GetNodeMap().GetNode("ResultingFrameRateAbs");// TODO: test this line
-    return camFrameRate->GetValue();
+    // const GenApi::CFloatPtr camFrameRate = _cam.GetNodeMap().GetNode("ResultingFrameRateAbs");// TODO: test this line
+    // return camFrameRate->GetValue();
+    double d = CFloatParameter(_cam.GetNodeMap(), "ResultingFrameRate").GetValue();
+    return d;
 }
-
+ 
 bool BaslerSource::setFPS(double fps)
 {
     using namespace GenApi;
@@ -108,7 +122,8 @@ bool BaslerSource::grab(cv::Mat& frame)
         double ts = ts_ms();    // backup, in case the device timestamp is junk
         //_timestamp = pgr_image->GetTimeStamp();   // TODO: extract timestamp
         if (!_ptrGrabResult->GrabSucceeded()) {
-            LOG_ERR("Error! Image capture failed (%d: %s).", _ptrGrabResult->GetErrorCode(), _ptrGrabResult->GetErrorDescription().c_str());
+            //LOG_ERR("Error! Image capture failed (%lu: %s).", _ptrGrabResult->GetErrorCode(), _ptrGrabResult->GetErrorDescription().c_str());
+            std::cout << "Error! Image capture failed with " << _ptrGrabResult->GetErrorCode() << _ptrGrabResult->GetErrorDescription().c_str() << std::endl;
             // release the original image pointer
             _ptrGrabResult.Release();
             return false;
@@ -130,6 +145,7 @@ bool BaslerSource::grab(cv::Mat& frame)
     try {
         // Convert image
         Pylon::CImageFormatConverter formatConverter;
+        formatConverter.OutputPixelFormat = Pylon::PixelType_BGR8packed;
         formatConverter.Convert(_pylonImg, _ptrGrabResult);
 
         Mat tmp(_height, _width, CV_8UC3, (uint8_t*)_pylonImg.GetBuffer()); 

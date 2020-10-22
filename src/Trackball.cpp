@@ -58,7 +58,7 @@ const int COM_BAUD_DEFAULT = 115200;
 
 const bool DO_DISPLAY_DEFAULT = true;
 const bool SAVE_RAW_DEFAULT = false;
-const bool SAVE_DEBUG_DEFAULT = false;
+const bool SAVE_DEBUG_DEFAULT = false; 
 
 /// OpenCV codecs for video writing
 const vector<vector<std::string>> CODECS = {
@@ -86,7 +86,7 @@ bool intersectSphere(const double r, const double camVec[3], double sphereVec[3]
     sphereVec[2] = camVec[2] * u - 1;
 
     return true;
-}
+} 
 
 ///
 /// 

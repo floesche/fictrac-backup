@@ -1,6 +1,8 @@
 cmake_minimum_required (VERSION 3.0)
 project (FicTrac)
 
+set(BASLER_USB3 ON)
+
 # The version number.
 set(FICTRAC_VERSION_MAJOR 2)
 set(FICTRAC_VERSION_MIDDLE 1)

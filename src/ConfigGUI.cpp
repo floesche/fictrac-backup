@@ -19,6 +19,9 @@
 #if defined(PGR_USB2) || defined(PGR_USB3)
 #include "PGRSource.h"
 #endif // PGR_USB2/3
+#if defined(BASLER_USB3)
+#include "BaslerSource.h"
+#endif // BASLER_USB3
 
 /// OpenCV individual includes required by gcc?
 #include <opencv2/highgui.hpp>
@@ -169,12 +172,16 @@ ConfigGui::ConfigGui(string config_fn)
     }
 
     /// Open the image source.
-#if defined(PGR_USB2) || defined(PGR_USB3)
+#if defined(PGR_USB2) || defined(PGR_USB3) || defined(BASLER_USB3)
     try {
         if (input_fn.size() > 2) { throw std::exception(); }
         // first try reading input as camera id
         int id = std::stoi(input_fn);
+#if defined(PGR_USB2) || defined(PGR_USB3)
         _source = std::make_shared<PGRSource>(id);
+#elif defined(BASLER_USB3)
+        _source = std::make_shared<BaslerSource>(id);
+#endif // PGR/BASLER
     }
     catch (...) {
         // then try loading as video file
