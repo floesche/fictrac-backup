@@ -1,4 +1,4 @@
-## FicTrac v2.1.1 config file (build date Oct 24 2020)
+## FicTrac v2.1.1 config file (build date Oct 25 2020)
 c2a_cnrs_xy      : { 191, 171, 128, 272, 20, 212, 99, 132 }
 c2a_r            : { 0.722445, -0.131314, -0.460878 }
 c2a_src          : c2a_cnrs_xy
@@ -11,10 +11,10 @@ opt_max_err      : -1.000000
 opt_max_evals    : 50
 opt_tol          : 0.001
 q_factor         : 6
-roi_c            : { -0.008408, 0.031325, 0.999474 }
-roi_circ         : { 137, 305, 227, 99, 486, 195 }
-roi_ignr         : { { 151, 330, 257, 351, 370, 352, 484, 329, 433, 434, 215, 457, 135, 328 } }
-roi_r            : 0.306118
+roi_c            : { -0.000627, 0.002732, 0.999996 }
+roi_circ         : { 71, 150, 202, 48, 246, 149 }
+roi_ignr         : { { 66, 157, 117, 173, 184, 172, 252, 156, 208, 229, 93, 227 } }
+roi_r            : 0.034824
 save_debug       : n
 save_raw         : n
 src_codec        : GRBG
@@ -24,4 +24,4 @@ src_height       : 240
 src_width        : 320
 thr_ratio        : 1.25
 thr_win_pc       : 0.25
-vfov             : 45
+vfov             : 5.3
