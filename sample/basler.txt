@@ -6,7 +6,7 @@ c2a_t            : { -0.210700, -0.181314, 2.257779 }
 do_display       : y
 max_bad_frames   : -1
 opt_bound        : 0.35
-opt_do_global    : n
+opt_do_global    : y
 opt_max_err      : -1.000000
 opt_max_evals    : 50
 opt_tol          : 0.001
@@ -17,6 +17,7 @@ roi_ignr         : { { 56, 194, 329, 188, 303, 247, 79, 247 } }
 roi_r            : 0.069353
 save_debug       : n
 save_raw         : n
+sphere_map_fn    : sample/basler-template-yz.png
 src_fn           : 1
 src_fps          : -1.000000
 thr_ratio        : 1.25
