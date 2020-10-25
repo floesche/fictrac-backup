@@ -131,6 +131,15 @@ Trackball::Trackball(string cfg_fn)
         _active = false;
         return;
     }
+    int src_width = -1, src_height = -1;
+    if (_cfg.getInt("src_width", src_width) && _cfg.getInt("src_height", src_height) && (src_width > 0) && (src_height > 0)){
+	    LOG("Attempting to set source dimensions to %dx%2d", src_width, src_height);
+	    source->setWH(src_width, src_height);
+    } 
+    else {
+        _cfg.add("src_height", src_height);
+	    _cfg.add("src_width", src_width);
+    }
     double src_fps = -1;
     if (_cfg.getDbl("src_fps", src_fps) && (src_fps > 0)) {
         LOG("Attempting to set source fps to %.2f", src_fps);

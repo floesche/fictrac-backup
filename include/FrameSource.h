@@ -20,6 +20,10 @@ public:
         _fps = fps;
         return false;   // we haven't actually done anything
     }
+	virtual bool setWH(int width, int height){
+		_width = width; _height = height;
+		return false;
+	}
 	virtual bool rewind()=0;
 	virtual bool grab(cv::Mat& frame)=0;
 

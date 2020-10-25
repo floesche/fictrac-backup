@@ -182,6 +182,11 @@ ConfigGui::ConfigGui(string config_fn)
     }
 #else // !PGR_USB2/3
     _source = std::make_shared<CVSource>(input_fn);
+	int src_width = -1, src_height = -1;
+        if (_cfg.getInt("src_width", src_width) && _cfg.getInt("src_height", src_height) && (src_width > 0) && (src_height > 0)){
+	        LOG("Attempting to set source dimensions to %dx%2d", src_width, src_height);
+	        _source->setWH(src_width, src_height);
+        } 
 #endif // PGR_USB2/3
     if (!_source || !_source->isOpen()) {
         LOG_ERR("Error! Could not open input frame source (%s)!", input_fn.c_str());
