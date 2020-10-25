@@ -1,8 +1,9 @@
 ## FicTrac v2.1.1 config file (build date Oct 25 2020)
 c2a_cnrs_xz      : { 206, 44, 125, 48, 123, 146, 206, 141 }
-c2a_r            : { 1.613216, -0.472261, -0.446671 }
-c2a_src          : c2a_cnrs_xz
-c2a_t            : { 0.046755, -0.258490, 26.478757 }
+c2a_cnrs_yz      : { 115, 36, 176, 43, 176, 143, 117, 130 }
+c2a_r            : { 0.682040, 1.971779, 1.744952 }
+c2a_src          : c2a_cnrs_yz
+c2a_t            : { -0.138693, -0.327812, 26.526351 }
 do_display       : y
 max_bad_frames   : -1
 opt_bound        : 0.35
@@ -17,7 +18,7 @@ roi_ignr         : { { 66, 157, 117, 173, 184, 172, 252, 156, 208, 229, 93, 227 
 roi_r            : 0.034824
 save_debug       : n
 save_raw         : n
-sphere_map_fn    : sample/pseye-template-xz.png
+sphere_map_fn    : sample/pseye-template-yz.png
 src_codec        : GRBG
 src_fn           : 2
 src_fps          : 187
