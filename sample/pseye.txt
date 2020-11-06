@@ -12,10 +12,10 @@ opt_max_err      : -1.000000
 opt_max_evals    : 50
 opt_tol          : 0.001
 q_factor         : 6
-roi_c            : { -0.000627, 0.002732, 0.999996 }
-roi_circ         : { 71, 150, 202, 48, 246, 149 }
-roi_ignr         : { { 66, 157, 117, 173, 184, 172, 252, 156, 208, 229, 93, 227 } }
-roi_r            : 0.034824
+roi_c            : { -0.002565, -0.004150, 0.999988 }
+roi_circ         : { 72, 127, 151, 26, 233, 85 }
+roi_ignr         : { { 69, 135, 153, 145, 240, 135, 202, 203, 90, 202 } }
+roi_r            : 0.032102
 save_debug       : n
 save_raw         : n
 sphere_map_fn    : sample/pseye-template-yz.png
