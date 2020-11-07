@@ -18,6 +18,8 @@ roi_ignr         : { { 69, 135, 153, 145, 240, 135, 202, 203, 90, 202 } }
 roi_r            : 0.032102
 save_debug       : n
 save_raw         : n
+sock_host        : 127.0.0.1
+sock_port        : 1717
 sphere_map_fn    : sample/pseye-template-yz.png
 src_codec        : GRBG
 src_fn           : 2
