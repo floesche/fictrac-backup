@@ -205,24 +205,24 @@ bool CVSource::grab(cv::Mat& frame)
 	if( _frame_cap.channels() == 1 ) {
 		switch( _bayerType ) {
 			case BAYER_BGGR:
-				cv::cvtColor(_frame_cap, frame, cv::COLOR_BayerBG2BGR);
+				cv::cvtColor(_frame_cap, _frame_flp, cv::COLOR_BayerBG2BGR);
 				break;
 			case BAYER_GBRG:
-				cv::cvtColor(_frame_cap, frame, cv::COLOR_BayerGB2BGR);
+				cv::cvtColor(_frame_cap, _frame_flp, cv::COLOR_BayerGB2BGR);
 				break;
 			case BAYER_GRBG:
-				cv::cvtColor(_frame_cap, frame, cv::COLOR_BayerGR2BGR);
+				cv::cvtColor(_frame_cap, _frame_flp, cv::COLOR_BayerGR2BGR);
 				break;
 			case BAYER_RGGB:
-				cv::cvtColor(_frame_cap, frame, cv::COLOR_BayerRG2BGR);
+				cv::cvtColor(_frame_cap, _frame_flp, cv::COLOR_BayerRG2BGR);
 				break;
 			case BAYER_NONE:
 			default:
-				cv::cvtColor(_frame_cap, frame, cv::COLOR_GRAY2BGR);
+				cv::cvtColor(_frame_cap, _frame_flp, cv::COLOR_GRAY2BGR);
 				break;
 		}
 	} else {
-        _frame_cap.copyTo(frame);
+        _frame_cap.copyTo(_frame_flp);
 	}
 
     /// Correct average frame rate when reading from file.
@@ -235,6 +235,10 @@ bool CVSource::grab(cv::Mat& frame)
         sleep(static_cast<long>(round(sleep_ms)));
         prev_ts = ts;
     }
+
+    /// FIXME: This is specific to the new PS3 camera. Make it configurable?
+    cv::flip(_frame_flp, frame, 0);
+
 
 	return true;
 }

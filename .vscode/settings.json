@@ -1,0 +1,11 @@
+{
+    "cmake.buildToolArgs": [],
+    "cmake.configureSettings":{
+        "CMAKE_TOOLCHAIN_FILE":"${userHome}/prj/vcpkg/scripts/buildsystems/vcpkg.cmake"
+    },
+    "files.associations": {
+        "thread": "cpp",
+        "condition_variable": "cpp"
+    }
+
+}

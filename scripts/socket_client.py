@@ -3,7 +3,7 @@
 import socket
 
 HOST = '127.0.0.1'  # The (receiving) host IP address (sock_host)
-PORT = ????         # The (receiving) host port (sock_port)
+PORT = 1717         # The (receiving) host port (sock_port)
 
 # Open the connection (ctrl-c / ctrl-break to quit)
 with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:		# UDP
@@ -12,7 +12,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:		# UDP
 #    sock.connect((HOST, PORT))	# TCP
     
     data = ""
-    
+    prevdir = 0
+    chgsum = 0
     # Keep receiving data until FicTrac closes
     while True:
         # Receive one data frame
@@ -55,4 +56,10 @@ with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:		# UDP
         seq = int(toks[23])
         
         # Do something ...
-        print(cnt)
+        #print(cnt)
+        chgsum += (heading-prevdir)
+        prevdir = heading
+        print(f'X: {heading}')
+        if cnt % 10 == 0:
+            print(f'direction: {chgsum}')
+            chgsum = 0

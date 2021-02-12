@@ -1,9 +1,9 @@
 ## FicTrac v2.1.1 config file (build date Oct 25 2020)
 c2a_cnrs_xz      : { 206, 44, 125, 48, 123, 146, 206, 141 }
-c2a_cnrs_yz      : { 115, 36, 176, 43, 176, 143, 117, 130 }
-c2a_r            : { 0.682040, 1.971779, 1.744952 }
+c2a_cnrs_yz      : { 100, 50, 225, 50, 225, 190, 100, 190 }
+c2a_r            : { 1.087743, 1.568389, 1.441832 }
 c2a_src          : c2a_cnrs_yz
-c2a_t            : { -0.138693, -0.327812, 26.526351 }
+c2a_t            : { -0.036759, -0.009559, 11.283717 }
 do_display       : y
 max_bad_frames   : -1
 opt_bound        : 0.35
@@ -12,20 +12,23 @@ opt_max_err      : -1.000000
 opt_max_evals    : 50
 opt_tol          : 0.001
 q_factor         : 6
-roi_c            : { -0.003793, -0.010380, 0.999939 }
-roi_circ         : { 75, 119, 160, 25, 235, 116 }
-roi_ignr         : { { 69, 135, 153, 145, 240, 135, 202, 203, 90, 202 } }
-roi_r            : 0.058894
+roi_c            : { 0.001575, 0.023100, 0.999732 }
+roi_circ         : { 31, 210, 84, 74, 292, 137 }
+roi_ignr         : { { 33, 221, 300, 217, 303, 239, 34, 238 } }
+roi_r            : 0.049399
 save_debug       : n
 save_raw         : n
 sock_host        : 127.0.0.1
 sock_port        : 1717
-sphere_map_fn    : sample/pseye-yz-ball03.png
+sphere_map_fn    : sample/pseye2-yz-ball14.png
 src_codec        : GRBG
-src_fn           : 2
+src_fn           : 0
 src_fps          : 187
 src_height       : 240
 src_width        : 320
 thr_ratio        : 1.25
 thr_win_pc       : 0.25
-vfov             : 10
+vfov             : 5
+
+# vfov: 9
+#c2a_cnrs_yz      : { 90, 50, 215, 50, 215, 190, 90, 190 }

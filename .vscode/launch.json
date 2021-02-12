@@ -1,0 +1,42 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "(gdb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            // Resolved by CMake Tools:
+            "program": "${command:cmake.launchTargetPath}",
+            "args": ["-v",  "DBG", "sample/pseye.txt"],
+            // "linux": {
+            //     "args": ["-v", "DBG","sample/basler.txt"],
+            // },
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [
+                {
+                    // add the directory where our target was built to the PATHs
+                    // it gets resolved by CMake Tools:
+                    "name": "build",
+                    "value": "$PATH:${command:cmake.launchTargetDirectory}",
+                    "DEBUG_LOGGING_LEVEL": "trace;info",
+                    "ENABLE_TRACING": "true"
+                }
+            ],
+            "logging": {
+                "moduleLoad": false,
+                "trace": true
+              },
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}
